@@ -2,6 +2,7 @@ package org.tzv;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Dictionary {
@@ -34,6 +35,10 @@ public class Dictionary {
         } else {
             System.out.println("No words found for letter: " + letter);
         }
+    }
+
+    public void printAllLetters() {
+        System.out.println(dict2.keySet());
     }
 
 }
