@@ -5,20 +5,22 @@ import java.awt.*;
 
 public class MainPanel extends JFrame {
     public ControlPanel controlPanel;
+    public QuestionPanel questionPanel;
     public MainPanel() {
         //MainPanel constructor
         setTitle("Harf Tablosu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setBounds(20, 100, 1500, 800);
+        createRootPane();
         controlPanel = new ControlPanel(this);
         getContentPane().add(controlPanel, BorderLayout.SOUTH);
-        createRootPane();
+        questionPanel = new QuestionPanel(this);
+        getContentPane().add(controlPanel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
         setVisible(true);
     }
     public static void main(String[] args) {
-        Squares squares = new Squares(4);
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
