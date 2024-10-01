@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class MainPanel extends JFrame {
     public MainPanel() {
+        //MainPanel constructor
         setTitle("Harf Tablosu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
