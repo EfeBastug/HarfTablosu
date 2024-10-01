@@ -1,2 +1,3 @@
 # HarfTablosu
-A mind game
+A simple mind game for Turkiye Intelligence Foundation
+Mewci kardeşim naber
