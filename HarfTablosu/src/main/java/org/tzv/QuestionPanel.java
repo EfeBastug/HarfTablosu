@@ -42,6 +42,6 @@ public class QuestionPanel extends JPanel implements Cloneable {
         // Draw the grid and the content of the 'answer' board
         question.drawTable(g, cellSize, leftSpace, upSpace);
 
-        answer.drawTable(g, cellSize, leftSpace + 500, upSpace);
+        answer.drawTable(g, cellSize, leftSpace + 250, upSpace);
     }
 }
