@@ -15,6 +15,8 @@ public class MainPanel extends JFrame {
         setVisible(true);
     }
     public static void main(String[] args) {
+        Dictionary dictionary = new Dictionary();
+        dictionary.printLetter('a');
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
