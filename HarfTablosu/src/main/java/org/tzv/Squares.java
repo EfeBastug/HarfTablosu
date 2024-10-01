@@ -32,6 +32,7 @@ public class Squares extends JPanel implements Cloneable {
     }
 
     // Backtracking function to fill the board row by row
+    // Backtracking function to fill the board row by row
     private boolean backtrack(int row) {
         // If we've filled all rows, we're done
         if (row == size) {
@@ -63,6 +64,7 @@ public class Squares extends JPanel implements Cloneable {
         return false;
     }
 
+
     // Check if the board is valid up to the current row
     private boolean isValidBoard(int currentRow) {
         // We only need to check the columns since the rows are already valid
@@ -85,7 +87,7 @@ public class Squares extends JPanel implements Cloneable {
 
     private ArrayList<String> getWordsOfLength(int length) {
         ArrayList<String> wordsOfLength = new ArrayList<>();
-        for (Character c: dictionary.dict2.keySet()) {
+        for (Character c : dictionary.dict2.keySet()) {
             ArrayList<String> wordsForLetter = dictionary.dict2.get(c);
             for (String word : wordsForLetter) {
                 if (word.length() == length) {
@@ -93,8 +95,10 @@ public class Squares extends JPanel implements Cloneable {
                 }
             }
         }
+        Collections.shuffle(wordsOfLength); // Shuffle the list to ensure randomness
         return wordsOfLength;
     }
+
 
     private boolean hasWordWithPrefix(String prefix) {
         char firstLetter = prefix.charAt(0);
