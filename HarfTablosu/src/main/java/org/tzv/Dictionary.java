@@ -5,20 +5,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Dictionary {
-    private final Map<Character, ArrayList<String>> dict2 = new HashMap<>();
+    public final HashMap<Character, ArrayList<String>> dict2 = new HashMap<>();
     private final File wordsFile = new File("HarfTablosu/src/main/resources/4harfli.txt");
-
+    public int dict2wordCount;
     public Dictionary() {
         initializeDictionaries();
     }
 
     private void initializeDictionaries() {
+        int lines = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(wordsFile))) {
             String word;
             while ((word = reader.readLine()) != null) {
                 char firstLetter = word.charAt(0);
                 dict2.computeIfAbsent(firstLetter, k -> new ArrayList<>()).add(word);
+                lines++;
             }
+            this.dict2wordCount = lines;
         } catch (IOException e) {
             System.out.println("Sözlük dosyası doğru yüklenemedi.");
         }

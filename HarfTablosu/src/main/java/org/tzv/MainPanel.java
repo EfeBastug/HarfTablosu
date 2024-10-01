@@ -4,19 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel extends JFrame {
+    public ControlPanel controlPanel;
     public MainPanel() {
         //MainPanel constructor
         setTitle("Harf Tablosu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setBounds(20, 100, 1500, 800);
+        controlPanel = new ControlPanel(this);
+        getContentPane().add(controlPanel, BorderLayout.SOUTH);
         createRootPane();
         setLocationRelativeTo(null);
         setVisible(true);
     }
     public static void main(String[] args) {
-        Dictionary dictionary = new Dictionary();
-        dictionary.printLetter('a');
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
