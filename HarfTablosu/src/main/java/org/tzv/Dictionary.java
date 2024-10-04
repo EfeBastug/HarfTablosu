@@ -2,13 +2,12 @@ package org.tzv;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 public class Dictionary {
     public final HashMap<Character, ArrayList<String>> dict2 = new HashMap<>();
-    private final File wordsFile = new File("D:\\Desktop\\oyun2\\HarfTablosu\\HarfTablosu\\src\\main\\resources\\4harfli.txt");
+    private final File wordsFile = new File("D:\\Desktop\\oyun\\HarfTablosu\\HarfTablosu\\src\\main\\resources\\4harfli.txt");
     public int dict2wordCount;
+
     public Dictionary() {
         initializeDictionaries();
     }
@@ -29,7 +28,7 @@ public class Dictionary {
     }
 
     public void printLetter(char letter) {
-        ArrayList<String> wordsList = dict2.get(letter);
+        ArrayList<String> wordsList = dict2.get(Character.toUpperCase(letter)); // Harfi büyük harfe dönüştür
         if (wordsList != null) {
             wordsList.forEach(System.out::println);
         } else {
@@ -40,5 +39,4 @@ public class Dictionary {
     public void printAllLetters() {
         System.out.println(dict2.keySet());
     }
-
 }

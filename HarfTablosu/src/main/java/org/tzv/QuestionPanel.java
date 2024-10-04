@@ -18,7 +18,12 @@ public class QuestionPanel extends JPanel implements Cloneable {
         setLayout(null);
 
         deepCopyBoard(this.answer, this.question);
-        this.question.performRandomOperations(2);
+        this.question.performRandomOperations(5);
+
+        System.out.println("question: " + this.question.board);
+        System.out.println("solution: "+ this.answer.board);
+        Solution sol = new Solution(question.size, this.question.board, this.answer.board);
+        sol.bruteForceAllCombinations();
 
     }
 
@@ -42,6 +47,6 @@ public class QuestionPanel extends JPanel implements Cloneable {
         // Draw the grid and the content of the 'answer' board
         question.drawTable(g, cellSize, leftSpace, upSpace);
 
-        answer.drawTable(g, cellSize, leftSpace + 250, upSpace);
+        answer.drawTable(g, cellSize, leftSpace + 500, upSpace);
     }
 }

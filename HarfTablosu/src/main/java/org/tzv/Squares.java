@@ -12,8 +12,8 @@ public class Squares extends JPanel implements Cloneable {
 
     private String questionString;
 
-    String[] turkishAlphabet = {"A", "B", "C", "Ç", "D", "E", "F", "G", "Ğ", "H", "I", "İ", "J", "K", "L", "M",
-            "N", "O", "Ö", "P", "R", "S", "Ş", "T", "U", "Ü", "V", "Y", "Z"};
+    private String[] turkishAlphabet = {"a", "b", "c", "ç", "d", "e", "f", "g", "ğ", "h", "ı", "i", "j", "k", "l", "m", "n", "o", "ö", "p", "r", "s", "ş", "t", "u", "ü", "v", "y", "z"};
+
 
     public Squares(int size) {
         this.size = size;
@@ -116,70 +116,55 @@ public class Squares extends JPanel implements Cloneable {
 
         return false;
     }
+
+
     public void performRandomOperations(int operationsCount) {
         Set<Integer> usedRows = new HashSet<>();
         Set<Integer> usedCols = new HashSet<>();
         Random random = new Random();
 
         for (int i = 0; i < operationsCount; i++) {
-            // Randomly choose to operate on a row or a column
+            // Rastgele olarak satır ya da sütun üzerinde işlem yap
             boolean operateOnRow = random.nextBoolean();
             int index;
 
             if (operateOnRow) {
-                // Select a unique row
+                // Eşsiz bir satır seç
                 do {
                     index = random.nextInt(size);
                 } while (usedRows.contains(index));
                 usedRows.add(index);
 
-                // Shift the selected row to the left
+                // Seçilen satırı sola kaydır
                 shiftRowLeft(index);
 
-                // Print row labels: 5 + index for the range 5, 6, 7, 8
-                StringBuilder rows = new StringBuilder();
-                for (int j = 0; j < size; j++) {
-                    rows.append((size + j + 1)).append(" ");
-                }
-                System.out.println("Shifted row " + (size + index + 1) + " to the left. Affected rows: " + rows.toString().trim());
+                // Kaydırılan satır hakkında bilgi yazdır (satır numarasını 1'den başlatıyoruz)
+                System.out.println("Shifted row " + (index + 1 + size) + " to the left.");
             } else {
-                // Select a unique column
+                // Eşsiz bir sütun seç
                 do {
                     index = random.nextInt(size);
                 } while (usedCols.contains(index));
                 usedCols.add(index);
 
-                // Shift the selected column to the left
-                shiftColumnLeft(index);
-                System.out.println("Shifted column " + (index + 1) + " to the top."); // Log the operation
+                // Sütundaki harfleri bir önceki Türk harfine çevir
+                shiftColumnLetters(index);
+
+                // Sütun numarasını 1'den başlatıyoruz
+                System.out.println("Changed letters in column " + (index + 1) + " to the previous Turkish letter.");
             }
         }
     }
-
-    // ... Existing methods remain unchanged ...
-
+    // Satırları sola kaydıran fonksiyon (harf değiştirme yok)
     private void shiftRowLeft(int rowIndex) {
-        // Shift all elements to the left in the specified row
-        String firstElement = board.get(rowIndex).remove(0); // Remove the first element
-        board.get(rowIndex).add(firstElement); // Add it to the end of the row
-
-        // Replace each letter with the previous letter in the Turkish alphabet
-        for (int col = 0; col < size; col++) {
-            String letter = board.get(rowIndex).get(col);
-            String newLetter = getPreviousTurkishLetter(letter);
-            board.get(rowIndex).set(col, newLetter);
-        }
+        // Satırdaki tüm elemanları sola kaydır
+        String firstElement = board.get(rowIndex).remove(0); // İlk elemanı çıkar
+        board.get(rowIndex).add(firstElement); // Çıkarılan elemanı sona ekle
     }
 
-    private void shiftColumnLeft(int colIndex) {
-        // Shift all elements to the top in the specified column
-        String firstElement = board.get(0).get(colIndex); // Get the first element
-        for (int row = 0; row < size - 1; row++) {
-            board.get(row).set(colIndex, board.get(row + 1).get(colIndex)); // Move up the elements
-        }
-        board.get(size - 1).set(colIndex, firstElement); // Place the first element at the bottom
-
-        // Replace each letter with the previous letter in the Turkish alphabet
+    // Sütundaki harfleri bir önceki Türk harfiyle değiştiren fonksiyon
+    private void shiftColumnLetters(int colIndex) {
+        // Sütundaki her bir hücreyi ziyaret et ve bir önceki Türk harfine çevir
         for (int row = 0; row < size; row++) {
             String letter = board.get(row).get(colIndex);
             String newLetter = getPreviousTurkishLetter(letter);
@@ -187,21 +172,21 @@ public class Squares extends JPanel implements Cloneable {
         }
     }
 
+    // Harfi bir önceki Türk harfiyle değiştiren fonksiyon
     private String getPreviousTurkishLetter(String letter) {
         if (letter.isEmpty()) {
-            return letter; // Return empty if there is no letter
+            return letter; // Boş ise aynen döndür
         }
 
-        // Find the index of the letter in the Turkish alphabet
+        // Türk alfabesindeki harfin indeksini bul
         int index = Arrays.asList(turkishAlphabet).indexOf(letter);
         if (index == 0) {
-            return turkishAlphabet[turkishAlphabet.length - 1]; // Wrap around to the last letter
+            return turkishAlphabet[turkishAlphabet.length - 1]; // İlk harfse son harfe dön
         } else if (index > 0) {
-            return turkishAlphabet[index - 1]; // Return the previous letter
+            return turkishAlphabet[index - 1]; // Bir önceki harfi döndür
         }
-        return letter; // If the letter is not found, return it as is
+        return letter; // Harf bulunmazsa aynen döndür
     }
-    // print content in screen
 
     public void drawTable(Graphics g, int cellSize, int leftSpace, int upSpace) {
         // Set font for the headers
@@ -237,7 +222,7 @@ public class Squares extends JPanel implements Cloneable {
                 FontMetrics metrics = g.getFontMetrics(g.getFont());
                 int letterX = x + (cellSize - metrics.stringWidth(letter)) / 2;
                 int letterY = y + ((cellSize - metrics.getHeight()) / 2) + metrics.getAscent();
-                g.drawString(letter, letterX, letterY);
+                g.drawString(letter.toUpperCase(), letterX, letterY);
             }
         }
     }
